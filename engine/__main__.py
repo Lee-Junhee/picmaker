@@ -1,17 +1,8 @@
-import math
-from canvas import Picture, Color
-from line import Line
+from picture.classes import Picture, Color
 
-p = Picture('pic.ppm', 128, 128, 255)
+p = Picture('pic.ppm', 1024, 1024, 511)
 
-c = Color(
-    lambda x, y: 255,
-    lambda x, y: 255,
-    lambda x, y: 255
-    )
-
-p.addcolor(c)
-
-Line.draw(p, c, 0, 100, 100, 13)
+for pixel in p.pixels:
+    pixel.color = Color(511 - abs(pixel.x - 511.5) // 1, 511 - abs(pixel.y - 511.5) // 1, 511 - (abs(pixel.x - 511.5) + abs(pixel.y - 511.5)) // 2)
 
 p.commit()
